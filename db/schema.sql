@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS recipes (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(120) NOT NULL,
+  ingredients TEXT NOT NULL,
+  steps TEXT NOT NULL,
+  tags TEXT,
+  photo_url TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
