@@ -75,3 +75,13 @@ app.get("/auth/status", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Tasty backend listening on port ${PORT}`);
 });
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://tastyfinal.onrender.com",
+    ],
+    credentials: true,
+  })
+);
