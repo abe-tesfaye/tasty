@@ -1,4 +1,3 @@
 # tasty
 
-Demo video:  https://uncg-my.sharepoint.com/personal/a_tesfaye_uncg_edu/_layouts/15/stream.aspx?id=%2Fpersonal%2Fa%5Ftesfaye%5Funcg%5Fedu%2FDocuments%2Ftasty%5Fdemo%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E0005f09e%2D80c6%2D47b9%2D968c%2Dde88dc9f5246 
-
+React + Express recipe app.
