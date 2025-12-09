@@ -14,60 +14,57 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === "production";
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:5175",
-  "https://tastyfinal.onrender.com", // your Render frontend
-];
+// Needed on Render so secure cookies & X-Forwarded-* work
+if (isProduction) {
+  app.set("trust proxy", 1);
+}
 
-// CORS
+// CORS: allow React frontends
+const allowedOrigins = isProduction
+  ? [
+      "https://tastyfinal.onrender.com", // your Render static site
+    ]
+  : [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+    ];
+
 app.use(
   cors({
-    origin(origin, callback) {
-      // allow tools like curl / Postman with no origin
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: allowedOrigins,
     credentials: true,
   })
 );
 
 app.use(express.json());
 
-const isProduction = process.env.NODE_ENV === "production";
-
-// Session middleware
+// Session middleware (must come before passport.session)
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "change-me",
     resave: false,
     saveUninitialized: false,
-    cookie: isProduction
-      ? {
-          sameSite: "none",
-          secure: true,
-        }
-      : undefined, // default cookie settings for local dev
+    cookie: {
+      httpOnly: true,
+      // For Render (different domains) we need cross-site cookies:
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction, // only secure cookies on HTTPS
+    },
   })
 );
 
-// Passport
+// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Simple root route for health check
-app.get("/", (req, res) => {
-  res.send("Tasty backend is running.");
-});
 
 // API routes
 app.use("/api/recipes", recipesRoutes);
 app.use("/auth", authRoutes);
 
-// "Am I logged in?" route
+// Simple "am I logged in?" route
 app.get("/auth/status", (req, res) => {
   if (req.user) {
     return res.json({ loggedIn: true, user: req.user });
