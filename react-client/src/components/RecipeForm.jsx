@@ -79,13 +79,13 @@ export default function RecipeForm({ onSuccess, onCancel, initialRecipe }) {
   }
 
   return (
-    <div>
+    <div className="recipe-form">
       <h2>{isEdit ? "Edit Recipe" : "Add Recipe"}</h2>
 
       {error && <p className="error-text">{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <div className="form-field">
+        <div className="form-row">
           <label>Title</label>
           <input
             type="text"
@@ -94,19 +94,19 @@ export default function RecipeForm({ onSuccess, onCancel, initialRecipe }) {
           />
         </div>
 
-        <div className="form-field">
+        <div className="form-row">
           <label>Photo URL (optional)</label>
           <input
             type="text"
             value={photoUrl}
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
-          <p className="help-text">
+          <span className="help-text">
             Paste an image link if you want a photo for this recipe.
-          </p>
+          </span>
         </div>
 
-        <div className="form-field">
+        <div className="form-row">
           <label>Tags (comma-separated, optional)</label>
           <input
             type="text"
@@ -115,7 +115,7 @@ export default function RecipeForm({ onSuccess, onCancel, initialRecipe }) {
           />
         </div>
 
-        <div className="form-field">
+        <div className="form-row">
           <label>Ingredients</label>
           <textarea
             rows={4}
@@ -124,7 +124,7 @@ export default function RecipeForm({ onSuccess, onCancel, initialRecipe }) {
           />
         </div>
 
-        <div className="form-field">
+        <div className="form-row">
           <label>Steps</label>
           <textarea
             rows={4}
@@ -133,17 +133,13 @@ export default function RecipeForm({ onSuccess, onCancel, initialRecipe }) {
           />
         </div>
 
-        <div className="form-buttons">
+        <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
           <button type="submit" className="btn btn-primary" disabled={saving}>
             {saving ? "Saving..." : isEdit ? "Update Recipe" : "Save Recipe"}
           </button>
 
           {onCancel && (
-            <button
-              type="button"
-              className="btn"
-              onClick={onCancel}
-            >
+            <button type="button" className="btn" onClick={onCancel}>
               Cancel
             </button>
           )}

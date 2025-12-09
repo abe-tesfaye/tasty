@@ -3,7 +3,6 @@
 export default function RecipeCard({ recipe, onDelete, onEdit }) {
   return (
     <div className="recipe-card">
-      {/* photo at top if we have one */}
       {recipe.photo_url && (
         <img
           className="recipe-card-image"
